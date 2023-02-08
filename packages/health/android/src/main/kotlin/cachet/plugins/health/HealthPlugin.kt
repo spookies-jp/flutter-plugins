@@ -234,6 +234,13 @@ class HealthPlugin(val activity: Activity, val channel: MethodChannel) : MethodC
         }
     }
 
+    private fun hasPermissions(call: MethodCall, result: Result) {
+        val options = callToHealthTypes(call)
+
+        val isGranted =  GoogleSignIn.hasPermissions(GoogleSignIn.getLastSignedInAccount(activity), options)
+        result.success(isGranted)
+    }
+
     /// Handle calls from the MethodChannel
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {

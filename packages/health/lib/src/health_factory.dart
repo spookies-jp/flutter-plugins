@@ -34,6 +34,24 @@ class HealthFactory {
     return isAuthorized;
   }
 
+    Future<bool> hasPermissions(List<HealthDataType> types) async {
+        /// If BMI is requested, then also ask for weight and height
+    if (types.contains(HealthDataType.BODY_MASS_INDEX)) {
+      if (!types.contains(HealthDataType.WEIGHT)) {
+        types.add(HealthDataType.WEIGHT);
+      }
+
+      if (!types.contains(HealthDataType.HEIGHT)) {
+        types.add(HealthDataType.HEIGHT);
+      }
+    }
+
+    List<String> keys = types.map((e) => _enumToString(e)).toList();
+    final bool hasPermission =
+        await _channel.invokeMethod('hasPermissions', {'types': keys});
+    return hasPermission;
+  }
+
   /// Calculate the BMI using the last observed height and weight values.
   Future<List<HealthDataPoint>> _computeAndroidBMI(
       DateTime startDate, DateTime endDate) async {
