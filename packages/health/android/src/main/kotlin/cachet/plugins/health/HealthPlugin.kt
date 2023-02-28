@@ -246,6 +246,7 @@ class HealthPlugin(val activity: Activity, val channel: MethodChannel) : MethodC
         when (call.method) {
             "requestAuthorization" -> requestAuthorization(call, result)
             "getData" -> getData(call, result)
+            "hasPermissions" -> hasPermissions(call, result)
             else -> result.notImplemented()
         }
     }
