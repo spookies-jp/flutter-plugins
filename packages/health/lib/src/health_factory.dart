@@ -157,7 +157,7 @@ class HealthFactory {
     return healthData;
   }
 
-  Future<int?> getTotalStepsInInterval(
+  Future<int> getTotalStepsInInterval(
     DateTime startTime,
     DateTime endTime,
   ) async {
@@ -165,7 +165,7 @@ class HealthFactory {
       'startTime': startTime.millisecondsSinceEpoch,
       'endTime': endTime.millisecondsSinceEpoch
     };
-    final stepsCount = await _channel.invokeMethod<int?>(
+    final stepsCount = await _channel.invokeMethod<int>(
       'getTotalStepsInInterval',
       args,
     );
