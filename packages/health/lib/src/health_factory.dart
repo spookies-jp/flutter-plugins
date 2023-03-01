@@ -157,6 +157,21 @@ class HealthFactory {
     return healthData;
   }
 
+  Future<int?> getTotalStepsInInterval(
+    DateTime startTime,
+    DateTime endTime,
+  ) async {
+    final args = <String, dynamic>{
+      'startTime': startTime.millisecondsSinceEpoch,
+      'endTime': endTime.millisecondsSinceEpoch
+    };
+    final stepsCount = await _channel.invokeMethod<int?>(
+      'getTotalStepsInInterval',
+      args,
+    );
+    return stepsCount;
+  }
+
   /// Given an array of [HealthDataPoint]s, this method will return the array
   /// without any duplicates.
   static List<HealthDataPoint> removeDuplicates(List<HealthDataPoint> points) {
