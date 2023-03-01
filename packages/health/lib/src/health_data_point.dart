@@ -65,6 +65,10 @@ class HealthDataPoint {
   /// Get the quantity value of the data point
   num get value => _value;
 
+  set value(num value) {
+    _value = value;
+  }
+
   /// Get the start of the datetime interval
   DateTime get dateFrom => _dateFrom;
 
