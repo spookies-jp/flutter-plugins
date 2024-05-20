@@ -14,6 +14,7 @@ import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
+import ancroidx.health.connect.client.aggregate.AggregateMetric
 import androidx.health.connect.client.permission.HealthPermission
 import androidx.health.connect.client.records.*
 import androidx.health.connect.client.records.MealType.MEAL_TYPE_BREAKFAST
