@@ -2319,7 +2319,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
                                 }
                         }
 
-        fun getCaloriesHealthConnect(start: Long, end: Long, result: Result) =
+        private fun getCaloriesHealthConnect(start: Long, end: Long, result: Result) =
                 scope.launch {
                         try {
                                 val caloriesInInteval = getAggregatedHealthConnectMetric<Energy>(
@@ -2428,6 +2428,7 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
                         "delete" -> delete(call, result)
                         "getAggregateData" -> getAggregateData(call, result)
                         "getTotalStepsInInterval" -> getTotalStepsInInterval(call, result)
+                        "getCaloriesHealthConnect" -> getCaloriesHealthConnect(call, result)
                         "writeWorkoutData" -> writeWorkoutData(call, result)
                         "writeBloodPressure" -> writeBloodPressure(call, result)
                         "writeBloodOxygen" -> writeBloodOxygen(call, result)
