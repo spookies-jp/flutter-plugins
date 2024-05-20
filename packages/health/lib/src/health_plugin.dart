@@ -867,8 +867,8 @@ class Health {
       args,
     );
     return calories;
-    }
   }
+
 
   /// Assigns numbers to specific [HealthDataType]s.
   int _alignValue(HealthDataType type) => switch (type) {
