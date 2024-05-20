@@ -2318,6 +2318,38 @@ class HealthPlugin(private var channel: MethodChannel? = null) :
                                 }
                         }
 
+        private fun getCaloriesHealthConnect(start: Long, end: Long, result: Result) =
+                scope.launch {
+                        try {
+                                val caloriesInInteval = getAggregatedHealthConnectMetric<Energy>(
+                                        start,
+                                        end,
+                                        TotalCaloriesBurnedRecord.ENERGY_TOTAL
+                                )?.inKilocalories ?: 0.0
+                                Log.i("FLUTTER_HEALTH::SUCCESS", "returning $caloriesInInteval kcal")
+                                result.success(caloriesInInteval)
+                        } catch (e: Exception) {
+                                Log.i("FLUTTER_HEALTH::ERROR", "unable to return calories, $e")
+                                result.success(null)
+                        }
+                }
+        
+        suspend fun <T: Any> getAggregatedHealthConnectMetric(
+                start: Long,
+                end: Long,
+                recordMetric: AggregateMetric<T>
+        ): T? {
+                val startInstant = Instant.ofEpochMilli(start)
+                val endInstant = Instant.ofEpochMilli(end)
+                val response = healthConnectClient.aggregate(
+                        AggregateRequest(
+                                metrics = setOf(recordMetric),
+                                timeRangeFilter = TimeRangeFilter.between(startInstant, endInstant),
+                        ),
+                )
+                return response[recordMetric]
+        }
+
         private fun getStepsInRange(
                         start: Long,
                         end: Long,
